@@ -13,9 +13,9 @@ export default function Menu() {
                 { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' }
             ]}
             socialItems={[
-                { label: 'Twitter', link: 'https://twitter.com' },
-                { label: 'GitHub', link: 'https://github.com' },
-                { label: 'LinkedIn', link: 'https://linkedin.com' }
+                { label: 'Instagram', link: 'https://www.instagram.com/cereal_assassin09/' },
+                { label: 'GitHub', link: 'https://github.com/MrPanda009' },
+                { label: 'LinkedIn', link: 'https://www.linkedin.com/in/shrey-singh-70898237b/' }
             ]}
             isFixed={true}
             displaySocials={true}
