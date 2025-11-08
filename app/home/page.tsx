@@ -5,6 +5,7 @@ import MagicBento from '@/components/magic_bento';
 import BlurTextWrapper from '@/components/blur_text_wrapper';
 import ScrollReveal from '@/components/scroll_reveal';
 import LightRays from '@/components/light_rays';
+import TiltedCard from '@/components/tilted_card';
 
 export default function Home() {
   const items = [
@@ -106,6 +107,24 @@ export default function Home() {
             >
               Projects
             </ScrollReveal>
+            <TiltedCard
+            imageSrc="/samadhan_setu.jpg"
+            captionText="Samadhan Setu"
+            containerHeight="300px"
+            containerWidth="300px"
+            imageHeight="300px"
+            imageWidth="300px"
+            rotateAmplitude={12}
+            scaleOnHover={1.2}
+            showMobileWarning={false}
+            showTooltip={true}
+            displayOverlayContent={true}
+            overlayContent={
+            <p className="bg-black bg-opacity-50 text-white p-2 rounded-md text-center">
+              Samadhan Setu
+              </p>
+            }
+            />
           </div>
         </div>
       </div></>
