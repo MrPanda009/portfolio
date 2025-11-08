@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 const vertexShader = `
@@ -463,67 +463,80 @@ class CanvAscii {
   }
 }
 
+// Helper function to calculate responsive sizes
+function getResponsiveSizes(width: number, height: number, textLength: number) {
+  const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1024;
+  
+  // Calculate base sizes based on viewport and text length
+  let asciiFontSize: number;
+  let textFontSize: number;
+  let planeBaseHeight: number;
+  
+  // Calculate text width to ensure it fits
+  const estimatedTextWidth = textLength * 0.6; // Approximate character width ratio
+  
+  if (isMobile) {
+    // Mobile: scale down significantly and ensure text fits
+    asciiFontSize = Math.max(3, Math.min(5, width / 80));
+    textFontSize = Math.min(100, (width * 0.8) / estimatedTextWidth);
+    planeBaseHeight = Math.min(4, height / 120);
+  } else if (isTablet) {
+    // Tablet: medium sizes
+    asciiFontSize = Math.max(5, Math.min(7, width / 100));
+    textFontSize = Math.min(140, (width * 0.85) / estimatedTextWidth);
+    planeBaseHeight = Math.min(6, height / 100);
+  } else {
+    // Desktop: full sizes
+    asciiFontSize = Math.max(6, Math.min(9, width / 140));
+    textFontSize = Math.min(200, (width * 0.9) / estimatedTextWidth);
+    planeBaseHeight = Math.min(7, height / 90);
+  }
+  
+  return { asciiFontSize, textFontSize, planeBaseHeight };
+}
+
 interface ASCIITextProps {
   text?: string;
-  asciiFontSize?: number;
-  textFontSize?: number;
   textColor?: string;
-  planeBaseHeight?: number;
   enableWaves?: boolean;
 }
 
 export default function ASCIIText({
   text = 'David!',
-  asciiFontSize = 8,
-  textFontSize = 200,
   textColor = '#fdf9f3',
-  planeBaseHeight = 8,
   enableWaves = true
 }: ASCIITextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const asciiRef = useRef<CanvAscii | null>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const { width, height } = containerRef.current.getBoundingClientRect();
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const { width, height } = containerRef.current.getBoundingClientRect();
+        setDimensions({ width, height });
+      }
+    };
 
-    if (width === 0 || height === 0) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && entry.boundingClientRect.width > 0 && entry.boundingClientRect.height > 0) {
-            const { width: w, height: h } = entry.boundingClientRect;
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
 
-            asciiRef.current = new CanvAscii(
-              {
-                text,
-                asciiFontSize,
-                textFontSize,
-                textColor,
-                planeBaseHeight,
-                enableWaves
-              },
-              containerRef.current!,
-              w,
-              h
-            );
-            asciiRef.current.load();
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, []);
 
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.1 }
-      );
+  useEffect(() => {
+    if (!containerRef.current || dimensions.width === 0 || dimensions.height === 0) return;
 
-      observer.observe(containerRef.current);
-
-      return () => {
-        observer.disconnect();
-        if (asciiRef.current) {
-          asciiRef.current.dispose();
-        }
-      };
-    }
+    const { asciiFontSize, textFontSize, planeBaseHeight } = getResponsiveSizes(
+      dimensions.width,
+      dimensions.height,
+      text.length
+    );
 
     asciiRef.current = new CanvAscii(
       {
@@ -535,27 +548,17 @@ export default function ASCIIText({
         enableWaves
       },
       containerRef.current,
-      width,
-      height
+      dimensions.width,
+      dimensions.height
     );
     asciiRef.current.load();
 
-    const ro = new ResizeObserver(entries => {
-      if (!entries[0] || !asciiRef.current) return;
-      const { width: w, height: h } = entries[0].contentRect;
-      if (w > 0 && h > 0) {
-        asciiRef.current.setSize(w, h);
-      }
-    });
-    ro.observe(containerRef.current);
-
     return () => {
-      ro.disconnect();
       if (asciiRef.current) {
         asciiRef.current.dispose();
       }
     };
-  }, [text, asciiFontSize, textFontSize, textColor, planeBaseHeight, enableWaves]);
+  }, [text, textColor, enableWaves, dimensions]);
 
   return (
     <div
@@ -564,7 +567,8 @@ export default function ASCIIText({
       style={{
         position: 'absolute',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        touchAction: 'none'
       }}
     >
       <style>{`
@@ -573,6 +577,11 @@ export default function ASCIIText({
         body {
           margin: 0;
           padding: 0;
+          overflow: hidden;
+        }
+
+        .ascii-text-container {
+          overflow: hidden;
         }
 
         .ascii-text-container canvas {
@@ -599,12 +608,25 @@ export default function ASCIIText({
           position: absolute;
           left: 0;
           top: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background-image: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
           background-attachment: fixed;
           -webkit-text-fill-color: transparent;
           -webkit-background-clip: text;
+          background-clip: text;
           z-index: 9;
           mix-blend-mode: difference;
+          overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+          .ascii-text-container pre {
+            font-size: clamp(4px, 1vw, 6px);
+          }
         }
       `}</style>
     </div>
