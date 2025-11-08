@@ -1,5 +1,5 @@
 import CardNav from '@/components/card_nav'
-import logo from '@/public/window.svg';
+import logo from '@/public/favicon.png';
 import ClickSpark from '@/components/click_spark';
 import MagicBento from '@/components/magic_bento';
 import BlurTextWrapper from '@/components/blur_text_wrapper';
@@ -51,7 +51,7 @@ export default function Home() {
       className="fixed inset-0 z-[-1] custom-rays" />
       <div className="relative z-10 mt-[-100vh]">
         <CardNav
-          logo={logo}
+          logo={logo.src}
           items={items}
           baseColor="#1e1e1eff"
           menuColor="#000"
