@@ -1,7 +1,7 @@
 import LiquidEther from '@/components/liquid_ether';
 import ASCIIText from '@/components/asciit_text';
 import PillNav from '@/components/nav';
-import logo from '@/public/window.svg';
+import logo from '@/public/samadhan_setu.jpg';
 
 export default function Home() {
   return (
@@ -30,8 +30,8 @@ export default function Home() {
         </div>
         <div style={{ position: 'absolute', top: '70%', left: '40%'}}>
           <PillNav
-            logo={logo}
-            logoAlt="Company Logo"
+            logo={logo.src}
+            logoAlt='Company Logo'
             items={[
               { label: 'Home', href: '/home' },
               { label: 'About', href: '/about' },

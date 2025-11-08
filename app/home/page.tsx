@@ -65,13 +65,13 @@ export default function Home() {
           sparkCount={8}
           duration={400}
         >
-          <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ height: '100vh',width: '60vw', margin: '0 auto',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <BlurTextWrapper
-              text="Isn't this so cool?!"
-              delay={150}
+              text="I'm Shrey Singh, a passionate software developer focused on building efficient, scalable, and user-centric solutions. My journey in technology is driven by a deep curiosity for how things work, from low-level systems to modern, interactive web applications."
+              delay={50}
               animateBy="words"
               direction="top"
-              className="text-2xl mb-8" />
+              className="text-2xl mb-8 font=roboto" />
           </div>
         </ClickSpark>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
