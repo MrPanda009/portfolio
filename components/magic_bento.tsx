@@ -40,6 +40,12 @@ const cardData: BentoCardProps[] = [
   },
   {
     color: '#060010',
+    title: 'Supabase',
+    description: '',
+    label: ''
+  },
+  {
+    color: '#060010',
     title: 'Typescript',
     description: '',
     label: ''

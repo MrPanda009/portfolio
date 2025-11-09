@@ -74,16 +74,16 @@ export default function Home() {
               className="text-2xl mb-8 font=roboto" />
           </div>
         </ClickSpark>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-          <div style={{ position: 'absolute', left: '5%', height: '100vh' }}>
-            <ScrollReveal
-              baseOpacity={0}
-              enableBlur={true}
-              baseRotation={5}
-              blurStrength={10}
-            >
-              Languages
-            </ScrollReveal>
+        <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen relative">
+          <div className="lg:absolute lg:left-[5%] lg:min-h-screen">
+              <ScrollReveal
+                  baseOpacity={1}
+                  enableBlur={true}
+                  baseRotation={5}
+                  blurStrength={10}
+              >
+                  Languages and platforms
+              </ScrollReveal>
           </div>
           <MagicBento
             textAutoHide={true}
@@ -100,7 +100,7 @@ export default function Home() {
         <div style={{ position: 'absolute', left: '5%', height: '100vh' }}>
           <div style={{ position: 'absolute', left: '5%', height: '100vh' }}>
             <ScrollReveal
-              baseOpacity={0}
+              baseOpacity={1}
               enableBlur={true}
               baseRotation={5}
               blurStrength={10}
