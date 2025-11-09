@@ -75,7 +75,7 @@ export default function Home() {
           </div>
         </ClickSpark>
         <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen relative">
-          <div className="lg:absolute lg:left-[5%] lg:min-h-screen">
+          <div className="lg:absolute lg:left-[5%] lg:bottom-[7%] lg:min-h-screen">
               <ScrollReveal
                   baseOpacity={1}
                   enableBlur={true}
