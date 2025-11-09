@@ -19,7 +19,7 @@ export default function Home() {
             viscous={30}
             iterationsViscous={32}
             iterationsPoisson={32}
-            resolution={0.5}
+            resolution={0.3}
             isBounce={false}
             autoDemo={true}
             autoSpeed={0.5}
