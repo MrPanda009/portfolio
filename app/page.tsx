@@ -42,7 +42,7 @@ export default function Home() {
             ease="power2.easeOut"
             baseColor="transparent"
             pillColor="#ffffff"
-            hoveredPillTextColor="#ffffff"
+            hoveredPillTextColor="#4d25a9ff"
             pillTextColor="#000000"
           />
         </div>

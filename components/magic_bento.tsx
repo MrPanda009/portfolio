@@ -35,38 +35,38 @@ const cardData: BentoCardProps[] = [
   {
     color: '#060010',
     title: 'HTML',
-    description: 'Track user behavior',
-    label: 'Insights'
+    description: '',
+    label: ''
   },
   {
     color: '#060010',
     title: 'Typescript',
-    description: 'Track user behavior',
-    label: 'Insights'
+    description: '',
+    label: ''
   },
   {
     color: '#060010',
     title: 'Python',
-    description: 'Track user behavior',
-    label: 'Insights'
+    description: '',
+    label: ''
   },
   {
     color: '#060010',
     title: 'CSS',
-    description: 'Track user behavior',
-    label: 'Insights'
+    description: '',
+    label: ''
   },
   {
     color: '#060010',
     title: 'Javascript',
-    description: 'Track user behavior',
-    label: 'Insights'
+    description: '',
+    label: ''
   },
   {
     color: '#060010',
     title: 'React',
-    description: 'Track user behavior',
-    label: 'Insights'
+    description: '',
+    label: ''
   },
 ];
 
